@@ -9,7 +9,7 @@
 - [x] Se deberán realizar tests unitarios de las vistas y de los componentes de la aplicación.
 - [x] Se podrá utilizar cualquier infraestructura de alojamiento pública como, por ejemplo, Vercel, ***Netlify*** o Github Pages.
 - [x] Se debe subir un fichero README.md al repositorio con las instrucciones para hacer funcionar la aplicación en local. Puedes añadir cualquier otro dato que consideres necesario.
-  Url App: <a href="kill-risetto.netlify.app" target="_blank">kill-risetto.netlify.app</a>
+  Url App: <a href="https://kill-risetto.netlify.app" target="_blank">kill-risetto.netlify.app</a>
 
 ## Tambien:
 - [x] Se ha utilizado un linter para mantener la calidad del código "eslint".
