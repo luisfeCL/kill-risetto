@@ -15,7 +15,7 @@ export const GameBoardStyles = css`
     }
 
     .grid{
-        min-width: var( --board-width );
+        width:100%;       
         max-width: var( --board-width );
         display: grid;
         justify-items: center;
