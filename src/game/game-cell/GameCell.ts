@@ -8,6 +8,8 @@ export class GameCell extends LitElement {
 
     @property({ type: Number }) cellIndex = 0;
 
+
+
     @state() active = false;
     @state() clickEffect = false;
 
@@ -34,7 +36,10 @@ export class GameCell extends LitElement {
             class="cell">
                 ${
                     this.active 
-                        ? html`<div class="mole">${this.clickEffect ? '💥' : '🐹'}</div>` 
+                        ? html`<div class="mole">${ this.clickEffect 
+                            ? html`<img width='50' src='/images/risetto_angry_50x50.png'/>`
+                            : html`<img width='50' src='/images/risetto_50x50.png'/>`
+                        }</div>` 
                         : ''
                 }
         </div>

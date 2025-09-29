@@ -25,6 +25,10 @@
 - ***@vaadin/router*** para poder crear una spa con sus rutas ya que es un router ligero e dieal para WC
 
 ### Decisiones especificas
+- Los componentes están separados en tres carpetas en la src.
+  - ***game/components*** para componentes relativos al juego
+  - ***shared/components*** para componentes independientes reutilizables en cualquier vista
+  - ***pages*** para componentes de las vistas.
 - La ruta ***/game*** comprobará sí se ha introducido un nombre de usuario, en caso contrario redirigirá a la vista home ('/')
 - El juego recordará a los usuarios una vez se introduzca el nombre ( ignorará caracteres especiales y mayúsculas ), así como la última dificultad en la que se jugó y las máximas puntuaciones en cada una de las mismas.
 - Las máximas puntuaciones se actualizarán cuando se pare el juego y se actualizará automáticamente.
@@ -40,7 +44,7 @@
     - En el caso de tratarse de un/a nuevo/a usuario/a iniciará en modo fácil de lo contrario, en la última dificultad jugada por el usuario con su respectiva máxima puntuación.
     - Al hacer click sobre la foto de perfil se regresará a la vista anterior.
     - Al cambiar la dificultad en el elemento select el componente ***GamePage*** detectará el evento y ejecutará la función **GameService.initGame()** que ejecutará la lógica de los intervalos según la dificultad seleccionada,
-    este emitirá un customEvent ***game-started*** para indicar a los componentes que lo necesiten que deben actualizar su estado (ej: cambiar el texto del botón). También se actualizará la última dificultad jugada por el/la usuario/a
+      este emitirá un customEvent ***game-started*** para indicar a los componentes que lo necesiten que deben actualizar su estado (ej: cambiar el texto del botón). También se actualizará la última dificultad jugada por el/la usuario/a
     - Tras esto se comenzarán a emitir los eventos ***risetto-shown*** y ***risetto-hidden*** para indicar al componente ***GameBoard*** cuando debe actualizar los componentes ***GameCell*** a su estados activo e inactivo respectivamente.
     - Al pausar el juego se enviará de nuevo un customEvent ***game-ended*** para actualizar los estados necesarios y se enviará la información de la partida para ser actualizada en memoria si es necesario.
     - Si se recarga la página se devolverá a la ruta '/' ya que el usuario actual no persiste.

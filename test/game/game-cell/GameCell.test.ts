@@ -13,6 +13,7 @@ describe('GameCell', () => {
   afterEach(() => {
     vi.restoreAllMocks();
     vi.useRealTimers();
+    document.body.removeChild(element);
   });
 
   // render
@@ -75,22 +76,22 @@ describe('GameCell', () => {
     expect(mole).toBeTruthy();
   });
 
-  it('debería mostrar 🐹 cuando active es true y clickEffect es false', async () => {
+  it('debería mostrar imagen de risetto cuando active es true y clickEffect es false', async () => {
     element.active = true;
     element.clickEffect = false;
     await element.updateComplete;
     
-    const mole = element.shadowRoot.querySelector('.mole');
-    expect(mole?.textContent).toBe('🐹');
+    const img = element.shadowRoot.querySelector('.mole img');
+    expect(img?.getAttribute('src')).toBe('/images/risetto_50x50.png');
   });
 
-  it('debería mostrar 💥 cuando active es true y clickEffect es true', async () => {
+  it('debería mostrar imagen de risetto enfadado cuando active es true y clickEffect es true', async () => {
     element.active = true;
     element.clickEffect = true;
     await element.updateComplete;
     
-    const mole = element.shadowRoot.querySelector('.mole');
-    expect(mole?.textContent).toBe('💥');
+    const img = element.shadowRoot.querySelector('.mole img');
+    expect(img?.getAttribute('src')).toBe('/images/risetto_angry_50x50.png');
   });
 
   // click cuando no está activo
@@ -147,19 +148,19 @@ describe('GameCell', () => {
     expect(element.clickEffect).toBe(true);
   });
 
-  it('debería cambiar de 🐹 a 💥 cuando se hace click', async () => {
+  it('debería cambiar de risetto normal a risetto angry cuando se hace click', async () => {
     element.active = true;
     await element.updateComplete;
     
-    let mole = element.shadowRoot.querySelector('.mole');
-    expect(mole?.textContent).toBe('🐹');
+    let img = element.shadowRoot.querySelector('.mole img');
+    expect(img?.getAttribute('src')).toBe('/images/risetto_50x50.png');
     
     const cell = element.shadowRoot.querySelector('.cell');
     cell.click();
     await element.updateComplete;
     
-    mole = element.shadowRoot.querySelector('.mole');
-    expect(mole?.textContent).toBe('💥');
+    img = element.shadowRoot.querySelector('.mole img');
+    expect(img?.getAttribute('src')).toBe('/images/risetto_angry_50x50.png');
   });
 
   it('debería volver clickEffect a false después de 600ms', async () => {
@@ -176,7 +177,7 @@ describe('GameCell', () => {
     expect(element.clickEffect).toBe(false);
   });
 
-  it('debería volver a mostrar 🐹 después de 600ms del click', async () => {
+  it('debería volver a mostrar risetto normal después de 600ms del click', async () => {
     element.active = true;
     await element.updateComplete;
     
@@ -184,14 +185,14 @@ describe('GameCell', () => {
     cell.click();
     await element.updateComplete;
     
-    let mole = element.shadowRoot.querySelector('.mole');
-    expect(mole?.textContent).toBe('💥');
+    let img = element.shadowRoot.querySelector('.mole img');
+    expect(img?.getAttribute('src')).toBe('/images/risetto_angry_50x50.png');
     
     vi.advanceTimersByTime(600);
     await element.updateComplete;
     
-    mole = element.shadowRoot.querySelector('.mole');
-    expect(mole?.textContent).toBe('🐹');
+    img = element.shadowRoot.querySelector('.mole img');
+    expect(img?.getAttribute('src')).toBe('/images/risetto_50x50.png');
   });
 
   // propiedades del evento
