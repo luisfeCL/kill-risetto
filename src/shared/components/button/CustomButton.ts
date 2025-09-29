@@ -7,13 +7,16 @@ export class CustomButton extends LitElement {
 
     static styles = [ CustomButtonStyles ];
 
-    @property() label: string = 'Click me!';
+    private roundedClass: string = 'rounded';
+    private defaultLabel: string = 'Click me!'
+
+    @property() label: string = this.defaultLabel;
     @property({ type: Boolean }) disabled: boolean = false;
     @property({ type: Boolean }) rounded: boolean = false;
 
     render() {
         return html`
-            <button class=${ this.rounded ? 'rounded' : '' } 
+            <button class=${ this.rounded ? this.roundedClass : null } 
                     ?disabled=${this.disabled}
                     >
                     ${this.label}

@@ -115,12 +115,11 @@ describe('HomePage', () => {
     expect(createUserSpy).toHaveBeenCalledWith('TestUser');
   });
 
-  it('debería navegar a game-page al hacer click', () => {
+  it('debería navegar a /game al hacer click', () => {
     element._name = 'TestUser';
-    
     element._handleClick();
     
-    expect(Router.go).toHaveBeenCalledWith('/game-page');
+    expect(Router.go).toHaveBeenCalledWith('/game');
   });
 
   it('no debería crear usuario si _name es undefined', () => {

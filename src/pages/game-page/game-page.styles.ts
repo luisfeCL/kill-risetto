@@ -17,6 +17,10 @@ export const GamePageStyles = css`
             width: 100%;
             height: fit-content;
 
+            img:hover{
+                cursor: pointer;
+            }
+
             .player-info{
                 display: flex;
                 align-items: end;

@@ -25,11 +25,11 @@ describe('CustomInput', () => {
   // valores por defecto
 
   it('debería tener placeholder por defecto', () => {
-    expect(element.placeholder).toBe('Introduce el texto');
+    expect(element.placeholder).toBe('Your text!');
   });
 
   it('debería tener inputId por defecto', () => {
-    expect(element.inputId).toBe('Introduce el texto');
+    expect(element.inputId).toBe('');
   });
 
   // placeholder
@@ -37,7 +37,7 @@ describe('CustomInput', () => {
   it('debería mostrar el placeholder por defecto', async () => {
     await element.updateComplete;
     const input = element.shadowRoot.querySelector('input');
-    expect(input?.placeholder).toBe('Introduce el texto');
+    expect(input?.placeholder).toBe('Your text!');
   });
 
   it('debería actualizar el placeholder cuando cambia', async () => {

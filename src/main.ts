@@ -8,8 +8,10 @@ import { styles } from './styles';
 export class MyApp extends LitElement {
     static styles =[ styles ]
 
+    private outlet: string = 'outlet'
+
     firstUpdated() {
-        const outlet = this.shadowRoot?.getElementById('outlet');
+        const outlet = this.shadowRoot?.getElementById(this.outlet);
         if ( outlet ) {
         initRouter( outlet );
         }
@@ -19,7 +21,7 @@ export class MyApp extends LitElement {
         return html`
 
         <main>
-            <div id="outlet"></div>
+            <div id=${ this.outlet }></div>
         </main>
         `;
     }

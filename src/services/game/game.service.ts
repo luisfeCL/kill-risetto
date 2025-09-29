@@ -1,4 +1,4 @@
-import { Difficulty, DifficultyType } from "./game.interface";
+import { Difficulty, DifficultyType, RefName } from "./game.interface";
 
 
 const difficulties: Difficulty[] = [
@@ -10,16 +10,26 @@ const difficulties: Difficulty[] = [
 export default class GameService {
     public static isGameActive: boolean = false;
     public static currenDifficulty: DifficultyType;
-    private static _showIntervalRef: number | undefined;
+    private static _showTimeoutRef: number | undefined;
     private static _hideTimeoutRef: number | undefined;
     private static _activeCells: Set<number> = new Set();
     private static _currentScore: number = 0;
+
+    private static gameStarted: string = 'game-started';
+    private static gameEnded: string = 'game-ended';
+    private static risettoShown: string = 'risetto-shown';
+    private static risettoHidden: string = 'risetto-hidden';
+
+    private static showRef: RefName = '_showTimeoutRef';
+    private static hideRef: RefName = '_hideTimeoutRef';
+    
+
     
     public static initGame( totalCells: number ){
         this.isGameActive = true;
-        this._showIntervalRef = window.setInterval( ()=>{ this.showRisetto( totalCells ) }, this.getInterval() )
+        this._showTimeoutRef = window.setInterval( ()=>{ this.showRisetto( totalCells ) }, this.getInterval() )
 
-        this._dispatchCustomEvent( 'game-started' );
+        this._dispatchCustomEvent( this.gameStarted );
     }
 
     public static showRisetto( totalCells: number ){
@@ -31,7 +41,7 @@ export default class GameService {
         const randomCell = this._getRandomCell(previousCell, totalCells);
         this._activeCells.add( randomCell );
 
-        this._dispatchCustomEvent('risetto-shown', { detail: { cellIndex: randomCell } });
+        this._dispatchCustomEvent(this.risettoShown, { detail: { cellIndex: randomCell } });
 
         this._hideTimeoutRef = window.setTimeout(() => {
             this.hideRissetto();
@@ -41,20 +51,20 @@ export default class GameService {
     public static hideRissetto(){
         const previousActiveCells = Array.from(this._activeCells);
 
-        this._clearTimeout( '_hideTimeoutRef' )
+        this._clearTimeout( this.hideRef )
         this._activeCells.clear();
 
         if (previousActiveCells.length > 0) {
-            this._dispatchCustomEvent('risetto-hidden', { detail: { cellIndexes: previousActiveCells[0] } });
+            this._dispatchCustomEvent(this.risettoHidden, { detail: { cellIndexes: previousActiveCells[0] } });
         }
     }
 
     public static endGame(){
         this.isGameActive = false;
-        this._clearTimeout( '_showIntervalRef' );
-        this._clearTimeout( '_hideTimeoutRef' );
+        this._clearTimeout( this.showRef );
+        this._clearTimeout( this.hideRef );
         this.hideRissetto();
-        this._dispatchCustomEvent('game-ended');
+        this._dispatchCustomEvent( this.gameEnded );
         this._currentScore = 0;
     }
     
@@ -98,7 +108,7 @@ export default class GameService {
         return randomCell
     }
 
-    private static _clearTimeout(refName: "_hideTimeoutRef" | "_showIntervalRef") {
+    private static _clearTimeout(refName: RefName) {
         const ref = this[refName];
         if (ref) {
             clearTimeout(ref);

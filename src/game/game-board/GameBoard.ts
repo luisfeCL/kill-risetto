@@ -13,6 +13,13 @@ export class GameBard extends LitElement{
 
   static styles = [ GameBoardStyles ];
 
+  private gamePausedLabel: string = 'Start!';
+  private gameRunningLabel: string = 'Stop!';
+  private risettoShownEvent: string = 'risetto-shown';
+  private risettohiddenEvent: string = 'risetto-hidden';
+  private hitEvent: string = 'mole-hit';
+  private onDifficultySelected: string = 'value-selected';
+
   @property({ type: Number }) rows = 3;
   @property({ type: Number }) columns = 3;
   
@@ -33,7 +40,7 @@ export class GameBard extends LitElement{
   }
 
   private _getText(){
-    return GameService.isGameActive ? 'Stop!' : 'Start!';
+    return GameService.isGameActive ? this.gameRunningLabel : this.gamePausedLabel;
   }
 
   private _showRisetto = (e: CustomEvent<{ cellIndex: number }>) => {
@@ -86,16 +93,16 @@ export class GameBard extends LitElement{
   }
 
   private initListeners(){
-    window.addEventListener('risetto-shown', this._showRisetto as EventListener );
-    window.addEventListener('risetto-hidden', this._hideRisetto as EventListener );
-    window.addEventListener('mole-hit', this._handleHit as EventListener );
-    window.addEventListener('value-selected', this._handleChangeDifficulty as EventListener );
+    window.addEventListener( this.risettoShownEvent, this._showRisetto as EventListener );
+    window.addEventListener( this.risettohiddenEvent, this._hideRisetto as EventListener );
+    window.addEventListener( this.hitEvent, this._handleHit as EventListener );
+    window.addEventListener( this.onDifficultySelected, this._handleChangeDifficulty as EventListener );
   }
   
   private removeListeners(){
-    window.removeEventListener('risetto-shown', this._showRisetto as EventListener );
-    window.removeEventListener('risetto-hidden', this._hideRisetto as EventListener );
-    window.removeEventListener('mole-hit', this._handleHit as EventListener );
-    window.removeEventListener('value-selected', this._handleChangeDifficulty as EventListener );
+    window.removeEventListener( this.risettoShownEvent, this._showRisetto as EventListener );
+    window.removeEventListener( this.risettohiddenEvent, this._hideRisetto as EventListener );
+    window.removeEventListener( this.hitEvent, this._handleHit as EventListener );
+    window.removeEventListener( this.onDifficultySelected, this._handleChangeDifficulty as EventListener );
   }
 }

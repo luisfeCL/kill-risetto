@@ -6,6 +6,7 @@
     --color-secondary: rgb( 116,224,170 );
     --color-tertiary: rgb( 251,254,178 );
     --color-accent: rgb(114, 52, 52);
+    --color-accent-disabled: rgb(151, 117, 117);
 
     /* App */
     --app-padding: 1rem;
@@ -37,6 +38,8 @@
     --button-border: 2px solid var(--color-accent);
     --button-border-radius: .4rem;
     --button-border-radius-rounded: 0 .4rem .4rem 0;
+    --button-disabled: var( --color-accent-disabled );
+    --button-border-disabled: 2px solid var(--color-accent-disabled);
     
     /* select */
     --select-background: transparent;

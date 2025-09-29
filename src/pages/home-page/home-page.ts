@@ -12,7 +12,15 @@ import { Router } from "@vaadin/router";
 export class HomePage extends LitElement{
 
     static styles = [ HomePageStyles ]
-      private _name: string | undefined = undefined;
+    private _name: string | undefined = undefined;
+
+    private logo: string = '/images/logo.png';
+    private logoWidth: number = 360;
+    private placeholder: string = 'Your name';
+    private inputId: string = 'custominput';
+    private buttonLabel: string = 'Join';
+    private onValueEvent: string = 'onHasValue';
+    private gameRoute: string = '/game'
 
     @state() private disabled = true;
 
@@ -25,7 +33,7 @@ export class HomePage extends LitElement{
     private _handleClick(){ 
         if( this._name ){ 
             UserService.createUser( this._name );
-            Router.go('/game-page');
+            Router.go(this.gameRoute);
         }
     }
 
@@ -36,14 +44,14 @@ export class HomePage extends LitElement{
 
     render()  {
         return html`
-            <img width='400' src="/images/logo.png">
+            <img width=${ this.logoWidth } src=${ this.logo }>
             <section class="registry-wrapper">
-                <custom-input placeholder='Introduce tu nombre' inputId='custominput' ></custom-input>
+                <custom-input placeholder=${ this.placeholder } inputId=${ this.inputId } ></custom-input>
                 <custom-button 
                 rounded
                 @click=${ this._handleClick } 
                 ?disabled=${ this.disabled } 
-                label="Join"></custom-button>
+                label=${ this.buttonLabel }></custom-button>
             </section>
         `
     }
@@ -54,10 +62,10 @@ export class HomePage extends LitElement{
     }
 
     private _addListeners(){
-        this.addEventListener('onHasValue', this._handleInput );
+        this.addEventListener(this.onValueEvent, this._handleInput );
     }
 
     private _removeListeners(){
-        this.removeEventListener('onHasValue', this._handleInput );
+        this.removeEventListener(this.onValueEvent, this._handleInput );
     }
 }

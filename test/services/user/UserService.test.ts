@@ -119,20 +119,4 @@ describe('UserService', () => {
     
     expect(maxScore).toBeUndefined();
   });
-
-  // _findUser
-
-  it('debería encontrar un usuario existente', () => {
-    UserService.createUser('TestUser');
-    const found = UserService._findUser('testuser');
-    
-    expect(found).toBeTruthy();
-    expect(found?.displayName).toBe('TestUser');
-  });
-
-  it('debería devolver undefined si el usuario no existe', () => {
-    const found = UserService._findUser('nonexistent');
-    
-    expect(found).toBeUndefined();
-  });
 });

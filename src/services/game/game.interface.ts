@@ -6,3 +6,5 @@ export interface Difficulty {
 }
 
 export type DifficultyType = 'easy' | 'medium' | 'hard'
+
+export type RefName = '_hideTimeoutRef' | '_showTimeoutRef'

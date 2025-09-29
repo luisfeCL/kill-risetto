@@ -8,6 +8,7 @@ describe('GamePage', () => {
 
   beforeEach(() => {
     UserService.currentUser = {
+      id: crypto.randomUUID(),
       name: 'testuser',
       displayName: 'TestUser',
       scores: { easy: 0, medium: 0, hard: 0 },

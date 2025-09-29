@@ -6,17 +6,24 @@ import { User } from "../user/user.interface";
 export default class UserService {
     public static currentUser: User | null;
 
-    public static createUser( userName: string ): User | undefined{
-        const existing = this._findUser( normalize( userName ) );
+    private static item: string = "users"
+    private static defaultDifficulty: DifficultyType = "easy"
 
-        if( !existing ){ 
+    public static createUser( userName: string ): User | undefined{
+        const normalizedName = normalize( userName );
+        const userAlreadyExist = this._checkName( normalizedName );
+
+        if( !userAlreadyExist ){
             const newUser = this._getUserTemplate( userName )
             this._addUser( newUser );
             this.currentUser = newUser;
             return;
-        };
+        }
+        
+        const id = this._getUserId( normalizedName );
+        const user = this._findUser( id );
 
-        this.currentUser = existing;
+        this.currentUser = user!
     }
 
     public static getCurrentUser(): User | null {
@@ -44,7 +51,6 @@ export default class UserService {
         return this.currentUser?.scores[ GameService.currenDifficulty ]
     }
     
-    // Propiedades privadas
     private static _updateMaxScore( difficulty: DifficultyType, prevScore: number,  newScore: number ): void {
         if( !this.currentUser ) return;
         const { scores } = this.currentUser;
@@ -59,19 +65,21 @@ export default class UserService {
     }
 
     private static _getUsers(){
-        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        const users = JSON.parse(localStorage.getItem( this.item ) || "[]");
 
         if( users ) return users
     }
 
     private static _getUserTemplate( name: string ): User{
-        const normalizedName = normalize( name );
-        const template: User = {
-            name: normalizedName,
-            displayName: name,
-            scores: { easy: 0, medium: 0, hard: 0 },
-            lastDifficulty: 'easy'
-        };
+        const uuid = crypto.randomUUID(),
+              normalizedName = normalize( name ),
+              template: User = {
+                id: uuid,
+                name: normalizedName,
+                displayName: name,
+                scores: { easy: 0, medium: 0, hard: 0 },
+                lastDifficulty: this.defaultDifficulty
+            };
 
         return template
     }
@@ -79,24 +87,35 @@ export default class UserService {
     private static _addUser( user: User ){
         const currentUsers = this._getUsers();
         const updatedUsers = [ ...currentUsers, user ];
-
-        console.log(currentUsers, updatedUsers)
         
-        localStorage.setItem('users', JSON.stringify( updatedUsers ))
+        localStorage.setItem(this.item, JSON.stringify( updatedUsers ))
     }
 
     private static _updateUser( userData: User ){
         let users: User[] = this._getUsers();
-        const index = this._getUsers().findIndex(( user: User ) => user.name === userData.name);
+        const index = this._getUsers().findIndex(( user: User ) => user.id === userData.id);
         
-        users[ index ] = userData
-        localStorage.setItem('users', JSON.stringify( users ))
+        users[ index ] = userData;
+        localStorage.setItem(this.item, JSON.stringify( users ));
     }
 
-    public static _findUser( userName: string ): User | undefined{
-        const existing = this._getUsers().find(( user: User ) => user.name === userName);
+    private static _findUser( id: string ): User | undefined{
+        const user = this._getUsers().find(( user: User ) => user.id === id);
 
-        if ( !existing ) return;
-        return existing;
+        if ( !user ) return;
+        return user;
+    }
+
+    private static _checkName( userName: string ): boolean{
+        const users = this._getUsers();
+        const nameAlreadyExist = users.some( (user: User) => user.name === userName)
+
+        return nameAlreadyExist
+    }
+
+    private static _getUserId( userName: string ): string {
+        const user = this._getUsers().find(( user: User ) => user.name === userName);
+
+        return user.id;
     }
 }

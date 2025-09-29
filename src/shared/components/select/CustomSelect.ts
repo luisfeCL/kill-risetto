@@ -12,11 +12,14 @@ interface SelectOption {
 export class CustomSelect extends LitElement {
     static styles = [CustomSelectStyles];
 
+    private defaultAction = '#'
+
     @property({ type: String }) value = '';
     @property({ type: String }) name = '';
     @property({ type: String }) id = '';
     @property({ type: String }) label = 'Select an option';
     @property({ type: Array }) options: SelectOption[] = [];
+    @property({ type: String }) action = this.defaultAction;
 
     private _handleChange(e: Event) {
         const select = e.target as HTMLSelectElement;
@@ -31,7 +34,7 @@ export class CustomSelect extends LitElement {
     
     render() {
         return html`
-            <form class="selector" action="#">
+            <form class="selector" action=${ this. action }>
                 <label for=${ this.id }>${ this.label }</label>
                 <select @change=${ this._handleChange } name=${ this.name } id=${ this.id }>
                     ${this.options.map(option => 

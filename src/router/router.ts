@@ -14,7 +14,7 @@ export const initRouter = ( outlet: HTMLElement ) => {
         }
     },
     {
-        path: '/game-page',
+        path: '/game',
         component: 'game-page',
         action: async () => {
             await import('../pages/game-page/game-page.ts');

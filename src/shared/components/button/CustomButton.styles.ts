@@ -14,6 +14,11 @@ export const CustomButtonStyles = css`
              &.rounded{
                  border-radius: var( --button-border-radius-rounded );
              }
+
+             &:disabled{
+                background-color: var( --button-disabled);
+                border: var( --button-border-disabled)
+             }
          }
         }
     }
