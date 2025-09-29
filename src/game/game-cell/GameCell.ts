@@ -7,8 +7,9 @@ export class GameCell extends LitElement {
     static styles = [ GameCellStyles ];
 
     @property({ type: Number }) cellIndex = 0;
-
-
+    
+    private risetto: string = '/images/risetto_50x50.png'
+    private angryRisetto: string = '/images/risetto_angry_50x50.png'
 
     @state() active = false;
     @state() clickEffect = false;
@@ -37,8 +38,8 @@ export class GameCell extends LitElement {
                 ${
                     this.active 
                         ? html`<div class="mole">${ this.clickEffect 
-                            ? html`<img width='50' src='/images/risetto_angry_50x50.png'/>`
-                            : html`<img width='50' src='/images/risetto_50x50.png'/>`
+                            ? html`<img src=${ this.angryRisetto }/>`
+                            : html`<img src=${ this.risetto }/>`
                         }</div>` 
                         : ''
                 }
