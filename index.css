@@ -1,0 +1,75 @@
+:root {
+    /* Base */
+    --white: rgb(241, 239, 239);
+    --black: rgb(19, 19, 19);
+    --color-primary: rgb( 196,217,169 );
+    --color-secondary: rgb( 116,224,170 );
+    --color-tertiary: rgb( 251,254,178 );
+    --color-accent: rgb(114, 52, 52);
+
+    /* App */
+    --app-padding: 1rem;
+    --app-height: 100dvh;
+    --app-width: 100dvw;
+    --title-font-size: 2.4rem;
+    --font-family: sans-serif;
+    --font-size: 1.6rem;
+    --background-color: var( --color-primary );
+    --color: rgb(114, 52, 52);
+
+    /* header */
+    --header-background: var(--color-accent);
+    --header-padding: 1rem 2.4rem;
+
+    /* Input Text */
+    --text-input-padding: 1rem;
+    --text-input-border: 2px solid var(--color-accent);
+    --text-input-border-radius: .4rem;
+    --text-input-border-radius-rounded: .4rem 0 0 .4rem;
+    --text-input-background: transparent;
+    --text-input-placeholder: grey;
+    --text-input-color: var(--color-accent);
+    
+    /* button */
+    --button-padding: 1rem 1.6rem;
+    --button-background: var(--color-accent);
+    --button-color: var(--white);
+    --button-border: 2px solid var(--color-accent);
+    --button-border-radius: .4rem;
+    --button-border-radius-rounded: 0 .4rem .4rem 0;
+    
+    /* select */
+    --select-background: transparent;
+
+    /* GameBoard */
+    --scores-font-size: 2.4rem;
+    --board-width: 500px;
+    --aspect-ratio: 1/1;
+
+    /* GameCell */
+    --cell-width: 100px;
+    --cell-border: 2px solid var( --color-accent );
+    --cell-font-size: 2.4rem;
+
+    @media (min-width: 768px) {
+        --app-padding: 2rem;
+        --font-size: 2.4rem;
+    }        
+
+    @media (min-width: 1024px) {
+        --app-padding: 3rem;
+        --font-size: 3rem;
+    }
+}
+
+*, *::before, *::after { 
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100dvh;
+    width: 100dvw;
+}
+
