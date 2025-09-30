@@ -17,21 +17,21 @@ describe('GameService', () => {
     }
   });
 
-  it('debería tener isGameActive false por defecto', () => {
+  it('should have isGameActive false by default', () => {
     expect(GameService.isGameActive).toBe(false);
   });
 
-  it('debería tener _currentScore en 0 por defecto', () => {
+  it('should have _currentScore at 0 by default', () => {
     expect(GameService.getCurrentScore()).toBe(0);
   });
 
-  it('debería activar el juego al iniciar', () => {
+  it('should activate the game on start', () => {
     GameService.initGame(9);
     
     expect(GameService.isGameActive).toBe(true);
   });
 
-  it('debería disparar evento game-started', () => {
+  it('should dispatch game-started event', () => {
     const eventListener = vi.fn();
     window.addEventListener('game-started', eventListener);
     
@@ -41,21 +41,21 @@ describe('GameService', () => {
     window.removeEventListener('game-started', eventListener);
   });
 
-  it('debería desactivar el juego al terminar', () => {
+  it('should deactivate the game on end', () => {
     GameService.initGame(9);
     GameService.endGame();
     
     expect(GameService.isGameActive).toBe(false);
   });
 
-  it('debería resetear el score al terminar', () => {
+  it('should reset the score on end', () => {
     GameService['_currentScore'] = 100;
     GameService.endGame();
     
     expect(GameService.getCurrentScore()).toBe(0);
   });
 
-  it('debería disparar evento game-ended', () => {
+  it('should dispatch game-ended event', () => {
     const eventListener = vi.fn();
     window.addEventListener('game-ended', eventListener);
     
@@ -66,59 +66,59 @@ describe('GameService', () => {
     window.removeEventListener('game-ended', eventListener);
   });
 
-  it('debería devolver array de dificultades', () => {
+  it('should return array of difficulties', () => {
     const difficulties = GameService.getDifficulties();
     
     expect(difficulties).toHaveLength(3);
     expect(difficulties[0].name).toBe('easy');
   });
 
-  it('debería devolver 1000ms para easy', () => {
+  it('should return 1000ms for easy', () => {
     GameService.updateDifficulty('easy');
     
     expect(GameService.getInterval()).toBe(1000);
   });
 
-  it('debería devolver 750ms para medium', () => {
+  it('should return 750ms for medium', () => {
     GameService.updateDifficulty('medium');
     
     expect(GameService.getInterval()).toBe(750);
   });
 
-  it('debería devolver 500ms para hard', () => {
+  it('should return 500ms for hard', () => {
     GameService.updateDifficulty('hard');
     
     expect(GameService.getInterval()).toBe(500);
   });
 
-  it('debería actualizar la dificultad', () => {
+  it('should update the difficulty', () => {
     GameService.updateDifficulty('hard');
     
     expect(GameService.currenDifficulty).toBe('hard');
   });
 
-  it('debería incrementar score según dificultad easy', () => {
+  it('should increment score according to easy difficulty', () => {
     GameService.updateDifficulty('easy');
     GameService.updateScore();
     
     expect(GameService.getCurrentScore()).toBe(10);
   });
 
-  it('debería incrementar score según dificultad medium', () => {
+  it('should increment score according to medium difficulty', () => {
     GameService.updateDifficulty('medium');
     GameService.updateScore();
     
     expect(GameService.getCurrentScore()).toBe(20);
   });
 
-  it('debería incrementar score según dificultad hard', () => {
+  it('should increment score according to hard difficulty', () => {
     GameService.updateDifficulty('hard');
     GameService.updateScore();
     
     expect(GameService.getCurrentScore()).toBe(30);
   });
 
-  it('debería acumular el score correctamente', () => {
+  it('should accumulate the score correctly', () => {
     GameService.updateDifficulty('easy');
     GameService.updateScore();
     GameService.updateScore();
@@ -126,20 +126,20 @@ describe('GameService', () => {
     expect(GameService.getCurrentScore()).toBe(20);
   });
 
-  it('debería devolver el score actual', () => {
+  it('should return the current score', () => {
     GameService['_currentScore'] = 150;
     
     expect(GameService.getCurrentScore()).toBe(150);
   });
 
-  it('debería limpiar las celdas activas', () => {
+  it('should clear active cells', () => {
     GameService['_activeCells'].add(3);
     GameService.hideRissetto();
     
     expect(GameService['_activeCells'].size).toBe(0);
   });
 
-  it('debería disparar evento risetto-hidden si había celdas activas', () => {
+  it('should dispatch risetto-hidden event if there were active cells', () => {
     const eventListener = vi.fn();
     window.addEventListener('risetto-hidden', eventListener);
     

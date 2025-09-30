@@ -27,42 +27,42 @@ describe('GameBoard', () => {
     document.body.removeChild(element);
   });
 
-  it('debería renderizar el componente', async () => {
+  it('should render the component', async () => {
     await element.updateComplete;
     expect(element).toBeTruthy();
   });
 
-  it('debería renderizar el grid', async () => {
+  it('should render the grid', async () => {
     await element.updateComplete;
     const grid = element.shadowRoot.querySelector('.grid');
     expect(grid).toBeTruthy();
   });
 
-  it('debería renderizar el custom-button', async () => {
+  it('should render the custom-button', async () => {
     await element.updateComplete;
     const button = element.shadowRoot.querySelector('custom-button');
     expect(button).toBeTruthy();
   });
 
-  it('debería tener rows 3 por defecto', () => {
+  it('should have rows 3 by default', () => {
     expect(element.rows).toBe(3);
   });
 
-  it('debería tener columns 3 por defecto', () => {
+  it('should have columns 3 by default', () => {
     expect(element.columns).toBe(3);
   });
 
-  it('debería tener _activeCells vacío por defecto', () => {
+  it('should have _activeCells empty by default', () => {
     expect(element._activeCells).toEqual([]);
   });
 
-  it('debería renderizar 9 celdas por defecto (3x3)', async () => {
+  it('should render 9 cells by default (3x3)', async () => {
     await element.updateComplete;
     const cells = element.shadowRoot.querySelectorAll('game-cell');
     expect(cells.length).toBe(9);
   });
 
-  it('debería renderizar el número correcto de celdas según rows y columns', async () => {
+  it('should render the correct number of cells according to rows and columns', async () => {
     element.rows = 4;
     element.columns = 5;
     await element.updateComplete;
@@ -71,7 +71,7 @@ describe('GameBoard', () => {
     expect(cells.length).toBe(20);
   });
 
-  it('debería activar la celda correcta cuando se actualiza _activeCells', async () => {
+  it('should activate the correct cell when _activeCells is updated', async () => {
     element._activeCells = [2];
     await element.updateComplete;
     
@@ -80,13 +80,13 @@ describe('GameBoard', () => {
     expect(cells[0].active).toBe(false);
   });
 
-  it('debería mostrar "Start!" cuando el juego no está activo', async () => {
+  it('should display "Start!" when the game is not active', async () => {
     await element.updateComplete;
     const button = element.shadowRoot.querySelector('custom-button');
     expect(button?.label).toBe('Start!');
   });
 
-  it('debería mostrar "Stop!" cuando el juego está activo', async () => {
+  it('should display "Stop!" when the game is active', async () => {
     GameService.isGameActive = true;
     element.requestUpdate();
     await element.updateComplete;
@@ -95,7 +95,7 @@ describe('GameBoard', () => {
     expect(button?.label).toBe('Stop!');
   });
 
-  it('debería activar la celda cuando se dispara risetto-shown', async () => {
+  it('should activate the cell when risetto-shown is dispatched', async () => {
     await element.updateComplete;
     
     const event = new CustomEvent('risetto-shown', {
@@ -108,7 +108,7 @@ describe('GameBoard', () => {
     expect(element._activeCells).toEqual([5]);
   });
 
-  it('debería limpiar las celdas activas cuando se dispara risetto-hidden', async () => {
+  it('should clear active cells when risetto-hidden is dispatched', async () => {
     element._activeCells = [2, 4];
     await element.updateComplete;
     
@@ -118,7 +118,7 @@ describe('GameBoard', () => {
     expect(element._activeCells).toEqual([]);
   });
 
-  it('debería actualizar el score cuando se dispara mole-hit', async () => {
+  it('should update the score when mole-hit is dispatched', async () => {
     const updateScoreSpy = vi.spyOn(GameService, 'updateScore');
     await element.updateComplete;
     

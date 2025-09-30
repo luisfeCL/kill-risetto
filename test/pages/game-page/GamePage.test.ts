@@ -28,47 +28,47 @@ describe('GamePage', () => {
     UserService.currentUser = null;
   });
 
-  it('debería renderizar el componente', async () => {
+  it('should render the component', async () => {
     await element.updateComplete;
     expect(element).toBeTruthy();
   });
 
-  it('debería renderizar el header', async () => {
+  it('should render the header', async () => {
     await element.updateComplete;
     const header = element.shadowRoot.querySelector('header');
     expect(header).toBeTruthy();
   });
 
-  it('debería renderizar la imagen de perfil', async () => {
+  it('should render the profile image', async () => {
     await element.updateComplete;
     const img = element.shadowRoot.querySelector('.player-info img');
     expect(img).toBeTruthy();
     expect(img?.getAttribute('src')).toBe('/images/profile.png');
   });
 
-  it('debería renderizar el nombre del jugador', async () => {
+  it('should render the player name', async () => {
     await element.updateComplete;
     const playerName = element.shadowRoot.querySelector('.player-name');
     expect(playerName?.textContent).toBe('TestUser');
   });
 
-  it('debería renderizar el custom-select', async () => {
+  it('should render the custom-select', async () => {
     await element.updateComplete;
     const select = element.shadowRoot.querySelector('custom-select');
     expect(select).toBeTruthy();
   });
 
-  it('debería renderizar el game-board', async () => {
+  it('should render the game-board', async () => {
     await element.updateComplete;
     const gameBoard = element.shadowRoot.querySelector('game-board');
     expect(gameBoard).toBeTruthy();
   });
 
-  it('debería tener currentDifficulty easy por defecto', () => {
+  it('should have currentDifficulty easy by default', () => {
     expect(element.currentDifficulty).toBe('easy');
   });
 
-  it('debería usar lastDifficulty del usuario si existe', () => {
+  it('should use the user\'s lastDifficulty if it exists', () => {
     UserService.currentUser!.lastDifficulty = 'hard';
     
     const newElement: any = document.createElement('game-page');
@@ -76,16 +76,16 @@ describe('GamePage', () => {
     expect(newElement.currentDifficulty).toBe('hard');
   });
 
-  it('debería estar autorizado si hay usuario actual', () => {
+  it('should be authorized if there is a current user', () => {
     expect(element.isAuthorized()).toBe(true);
   });
 
-  it('no debería estar autorizado si no hay usuario actual', () => {
+  it('should not be authorized if there is no current user', () => {
     UserService.currentUser = null;
     expect(element.isAuthorized()).toBe(false);
   });
 
-  it('debería actualizar la dificultad en GameService al montar', () => {
+  it('should update the difficulty in GameService on mount', () => {
     const updateSpy = vi.spyOn(GameService, 'updateDifficulty');
     
     const newElement: any = document.createElement('game-page');
@@ -97,7 +97,7 @@ describe('GamePage', () => {
     document.body.removeChild(newElement);
   });
 
-  it('debería actualizar currentDifficulty al cambiar', async () => {
+  it('should update currentDifficulty when changed', async () => {
     await element.updateComplete;
     
     const event = new CustomEvent('value-selected', {
@@ -109,7 +109,7 @@ describe('GamePage', () => {
     expect(element.currentDifficulty).toBe('hard');
   });
 
-  it('debería actualizar GameService.updateDifficulty', async () => {
+  it('should call GameService.updateDifficulty', async () => {
     const updateSpy = vi.spyOn(GameService, 'updateDifficulty');
     await element.updateComplete;
     
@@ -122,7 +122,7 @@ describe('GamePage', () => {
     expect(updateSpy).toHaveBeenCalledWith('medium');
   });
 
-  it('debería terminar el juego si está activo al cambiar dificultad', async () => {
+  it('should end the game if active when changing difficulty', async () => {
     GameService.isGameActive = true;
     const endGameSpy = vi.spyOn(GameService, 'endGame');
     await element.updateComplete;
@@ -136,7 +136,7 @@ describe('GamePage', () => {
     expect(endGameSpy).toHaveBeenCalled();
   });
 
-  it('debería actualizar UserService con la nueva dificultad', async () => {
+  it('should update UserService with the new difficulty', async () => {
     const updateSpy = vi.spyOn(UserService, 'updateUserData');
     await element.updateComplete;
     
@@ -149,7 +149,7 @@ describe('GamePage', () => {
     expect(updateSpy).toHaveBeenCalledWith('medium');
   });
 
-  it('debería actualizar UserService al terminar el juego', async () => {
+  it('should update UserService when the game ends', async () => {
     const updateSpy = vi.spyOn(UserService, 'updateUserData');
     GameService.currenDifficulty = 'easy';
     GameService['_currentScore'] = 150;
@@ -160,7 +160,7 @@ describe('GamePage', () => {
     expect(updateSpy).toHaveBeenCalledWith('easy', 150);
   });
 
-  it('debería terminar el juego al desmontar si está activo', () => {
+  it('should end the game on disconnect if it is active', () => {
     GameService.isGameActive = true;
     const endGameSpy = vi.spyOn(GameService, 'endGame');
     
@@ -169,7 +169,7 @@ describe('GamePage', () => {
     expect(endGameSpy).toHaveBeenCalled();
   });
 
- it('debería escuchar el evento game-ended', async () => {
+ it('should listen for the game-ended event', async () => {
     const updateSpy = vi.spyOn(UserService, 'updateUserData');
     GameService.currenDifficulty = 'easy';
     GameService['_currentScore'] = 100;

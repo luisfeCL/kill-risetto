@@ -15,7 +15,7 @@ describe('UserService', () => {
     vi.clearAllMocks();
   });
 
-  it('debería crear un nuevo usuario si no existe', () => {
+  it('should create a new user if one doesn\'t exist', () => {
     UserService.createUser('TestUser');
     
     expect(UserService.currentUser).toBeTruthy();
@@ -23,13 +23,13 @@ describe('UserService', () => {
     expect(UserService.currentUser?.name).toBe('testuser');
   });
 
-  it('debería normalizar el nombre del usuario', () => {
+  it('should normalize the username', () => {
     UserService.createUser('TestUser');
     
     expect(UserService.currentUser?.name).toBe('testuser');
   });
 
-  it('debería establecer scores iniciales en 0', () => {
+  it('should set initial scores to 0', () => {
     UserService.createUser('TestUser');
     
     expect(UserService.currentUser?.scores).toEqual({
@@ -39,13 +39,13 @@ describe('UserService', () => {
     });
   });
 
-  it('debería establecer lastDifficulty en easy por defecto', () => {
+  it('should set lastDifficulty to easy by default', () => {
     UserService.createUser('TestUser');
     
     expect(UserService.currentUser?.lastDifficulty).toBe('easy');
   });
 
-  it('debería devolver usuario existente si ya existe', () => {
+  it('should return existing user if already exists', () => {
     UserService.createUser('TestUser');
     const firstUser = UserService.currentUser;
     
@@ -55,40 +55,40 @@ describe('UserService', () => {
     expect(firstUser?.name).toBe(secondUser?.name);
   });
 
-  it('debería devolver el usuario actual', () => {
+  it('should return the current user', () => {
     UserService.createUser('TestUser');
     const user = UserService.getCurrentUser();
     
     expect(user?.displayName).toBe('TestUser');
   });
 
-  it('debería devolver null si no hay usuario actual', () => {
+  it('should return null if there is no current user', () => {
     const user = UserService.getCurrentUser();
     
     expect(user).toBeNull();
   });
 
-  it('debería actualizar el score si es mayor', () => {
+  it('should update the score if it is greater', () => {
     UserService.createUser('TestUser');
     UserService.updateUserData('easy', 100);
     
     expect(UserService.currentUser?.scores.easy).toBe(100);
   });
 
-  it('debería actualizar lastDifficulty si cambia', () => {
+  it('should update lastDifficulty if it changes', () => {
     UserService.createUser('TestUser');
     UserService.updateUserData('medium');
     
     expect(UserService.currentUser?.lastDifficulty).toBe('medium');
   });
 
-  it('no debería actualizar si no hay usuario actual', () => {
+  it('should not update if there is no current user', () => {
     UserService.updateUserData('easy', 100);
     
     expect(UserService.currentUser).toBeNull();
   });
 
-  it('no debería actualizar si el score no es mayor', () => {
+  it('should not update if the score is not greater', () => {
     UserService.createUser('TestUser');
     UserService.updateUserData('easy', 100);
     UserService.updateUserData('easy', 50);
@@ -96,7 +96,7 @@ describe('UserService', () => {
     expect(UserService.currentUser?.scores.easy).toBe(100);
   });
 
-  it('debería devolver el score máximo para la dificultad actual', () => {
+  it('should return the maximum score for the current difficulty', () => {
     GameService.currenDifficulty = 'easy';
     UserService.createUser('TestUser');
     UserService.updateUserData('easy', 100);
@@ -106,7 +106,7 @@ describe('UserService', () => {
     expect(maxScore).toBe(100);
   });
 
-  it('debería devolver undefined si no hay usuario actual', () => {
+  it('should return undefined if there is no current user', () => {
     const maxScore = UserService.getMaxScore();
     
     expect(maxScore).toBeUndefined();

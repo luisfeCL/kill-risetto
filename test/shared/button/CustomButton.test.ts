@@ -9,30 +9,30 @@ describe('CustomButton', () => {
     document.body.appendChild(element);
   });
 
-  it('debería renderizar el componente', async () => {
+  it('should render the component', async () => {
     await element.updateComplete;
     expect(element).toBeTruthy();
   });
 
-  it('debería renderizar un botón', async () => {
+  it('should render a button', async () => {
     await element.updateComplete;
     const button = element.shadowRoot.querySelector('button');
     expect(button).toBeTruthy();
   });
 
-  it('debería tener label por defecto', () => {
+  it('should have a default label', () => {
     expect(element.label).toBe('Click me!');
   });
 
-  it('debería NO estar deshabilitado por defecto', () => {
+  it('should NOT be disabled by default', () => {
     expect(element.disabled).toBe(false);
   });
 
-  it('debería NO ser rounded por defecto', () => {
+  it('should NOT be rounded by default', () => {
     expect(element.rounded).toBe(false);
   });
 
-  it('debería actualizar el label cuando cambia', async () => {
+  it('should update the label when it changes', async () => {
     element.label = 'Nuevo texto';
     await element.updateComplete;
     
@@ -40,7 +40,7 @@ describe('CustomButton', () => {
     expect(button?.textContent?.trim()).toBe('Nuevo texto');
   });
 
-  it('debería estar deshabilitado cuando disabled=true', async () => {
+  it('should be disabled when disabled=true', async () => {
     element.disabled = true;
     await element.updateComplete;
     
@@ -48,7 +48,7 @@ describe('CustomButton', () => {
     expect(button?.disabled).toBe(true);
   });
 
-  it('debería habilitar el botón cuando disabled=false', async () => {
+  it('should enable the button when disabled=false', async () => {
     element.disabled = true;
     await element.updateComplete;
     
@@ -59,13 +59,13 @@ describe('CustomButton', () => {
     expect(button?.disabled).toBe(false);
   });
 
-  it('debería NO tener clase rounded por defecto', async () => {
+  it('should NOT have the rounded class by default', async () => {
     await element.updateComplete;
     const button = element.shadowRoot.querySelector('button');
     expect(button?.classList.contains('rounded')).toBe(false);
   });
 
-  it('debería tener clase rounded cuando rounded=true', async () => {
+  it('should have the rounded class when rounded=true', async () => {
     element.rounded = true;
     await element.updateComplete;
     

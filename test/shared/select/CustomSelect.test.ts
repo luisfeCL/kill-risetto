@@ -9,56 +9,56 @@ describe('CustomSelect', () => {
     document.body.appendChild(element);
   });
 
-  it('debería renderizar el componente', async () => {
+  it('should render the component', async () => {
     await element.updateComplete;
     expect(element).toBeTruthy();
   });
 
-  it('debería renderizar un select', async () => {
+  it('should render a select', async () => {
     await element.updateComplete;
     const select = element.shadowRoot.querySelector('select');
     expect(select).toBeTruthy();
   });
 
-  it('debería renderizar un label', async () => {
+  it('should render a label', async () => {
     await element.updateComplete;
     const label = element.shadowRoot.querySelector('label');
     expect(label).toBeTruthy();
   });
 
-  it('debería renderizar un form', async () => {
+  it('should render a form', async () => {
     await element.updateComplete;
     const form = element.shadowRoot.querySelector('form');
     expect(form).toBeTruthy();
   });
 
-  it('debería tener value vacío por defecto', () => {
+  it('should have empty value by default', () => {
     expect(element.value).toBe('');
   });
 
-  it('debería tener name vacío por defecto', () => {
+  it('should have empty name by default', () => {
     expect(element.name).toBe('');
   });
 
-  it('debería tener id vacío por defecto', () => {
+  it('should have empty id by default', () => {
     expect(element.id).toBe('');
   });
 
-  it('debería tener label por defecto', () => {
+  it('should have a default label', () => {
     expect(element.label).toBe('Select an option');
   });
 
-  it('debería tener options vacío por defecto', () => {
+  it('should have empty options by default', () => {
     expect(element.options).toEqual([]);
   });
 
-  it('debería mostrar el label por defecto', async () => {
+  it('should display the default label', async () => {
     await element.updateComplete;
     const label = element.shadowRoot.querySelector('label');
     expect(label?.textContent).toBe('Select an option');
   });
 
-  it('debería actualizar el label cuando cambia', async () => {
+  it('should update the label when it changes', async () => {
     element.label = 'Selecciona una opción';
     await element.updateComplete;
     
@@ -67,7 +67,7 @@ describe('CustomSelect', () => {
   });
 
 
-  it('debería tener el name correcto en el select', async () => {
+  it('should have the correct name on the select', async () => {
     element.name = 'mi-select';
     await element.updateComplete;
     
@@ -75,7 +75,7 @@ describe('CustomSelect', () => {
     expect(select?.name).toBe('mi-select');
   });
 
-  it('debería tener el id correcto en el select', async () => {
+  it('should have the correct id on the select', async () => {
     element.id = 'mi-select-id';
     await element.updateComplete;
     
@@ -83,7 +83,7 @@ describe('CustomSelect', () => {
     expect(select?.id).toBe('mi-select-id');
   });
 
-  it('debería vincular el label con el select mediante el id', async () => {
+  it('should link the label to the select using the id', async () => {
     element.id = 'test-id';
     await element.updateComplete;
     
@@ -92,7 +92,7 @@ describe('CustomSelect', () => {
   });
 
 
-  it('debería renderizar las opciones correctamente', async () => {
+  it('should render the options correctly', async () => {
     element.options = [
       { value: '1', label: 'opción uno' },
       { value: '2', label: 'opción dos' },
@@ -104,7 +104,7 @@ describe('CustomSelect', () => {
     expect(options.length).toBe(3);
   });
 
-  it('debería capitalizar los labels de las opciones', async () => {
+  it('should capitalize the option labels', async () => {
     element.options = [
       { value: '1', label: 'primera opción' },
       { value: '2', label: 'segunda opción' }
@@ -116,7 +116,7 @@ describe('CustomSelect', () => {
     expect(options[1].textContent?.trim()).toBe('Segunda opción');
   });
 
-  it('debería asignar los values correctos a las opciones', async () => {
+  it('should assign the correct values to the options', async () => {
     element.options = [
       { value: 'opt1', label: 'Opción 1' },
       { value: 'opt2', label: 'Opción 2' }
@@ -128,7 +128,7 @@ describe('CustomSelect', () => {
     expect(options[1].value).toBe('opt2');
   });
 
-  it('debería marcar como selected la opción que coincide con value', async () => {
+  it('should mark as selected the option that matches the value', async () => {
     element.options = [
       { value: '1', label: 'Uno' },
       { value: '2', label: 'Dos' },
@@ -143,7 +143,7 @@ describe('CustomSelect', () => {
     expect(options[2].selected).toBe(false);
   });
 
-  it('debería actualizar el selected cuando cambia el value', async () => {
+  it('should update the selected option when the value changes', async () => {
     element.options = [
       { value: 'a', label: 'A' },
       { value: 'b', label: 'B' }
@@ -162,7 +162,7 @@ describe('CustomSelect', () => {
   });
 
 
-  it('debería emitir evento value-selected cuando cambia la selección', async () => {
+  it('should emit value-selected event when the selection changes', async () => {
     element.options = [
       { value: '1', label: 'Uno' },
       { value: '2', label: 'Dos' }
@@ -179,7 +179,7 @@ describe('CustomSelect', () => {
     expect(eventSpy).toHaveBeenCalled();
   });
 
-  it('debería emitir el valor correcto en el evento value-selected', async () => {
+  it('should emit the correct value in the value-selected event', async () => {
     element.options = [
       { value: 'opt1', label: 'Opción 1' },
       { value: 'opt2', label: 'Opción 2' }
@@ -198,7 +198,7 @@ describe('CustomSelect', () => {
     expect(detailValue).toBe('opt2');
   });
 
-  it('debería actualizar la propiedad value cuando cambia la selección', async () => {
+  it('should update the value property when the selection changes', async () => {
     element.options = [
       { value: 'a', label: 'A' },
       { value: 'b', label: 'B' }
@@ -212,24 +212,24 @@ describe('CustomSelect', () => {
     expect(element.value).toBe('b');
   });
 
-  it('debería emitir evento con bubbles=true y composed=true', async () => {
+  it('should emit event with bubbles=true and composed=true', async () => {
     element.options = [{ value: '1', label: 'Uno' }];
     await element.updateComplete;
     
-    let eventoCapturado: any = null;
+    let capturedEvent: any = null;
     element.addEventListener('value-selected', (e: any) => {
-      eventoCapturado = e;
+      capturedEvent = e;
     });
     
     const select = element.shadowRoot.querySelector('select');
     select.value = '1';
     select.dispatchEvent(new Event('change'));
     
-    expect(eventoCapturado.bubbles).toBe(true);
-    expect(eventoCapturado.composed).toBe(true);
+    expect(capturedEvent.bubbles).toBe(true);
+    expect(capturedEvent.composed).toBe(true);
   });
 
-  it('debería incluir el value en el detail del evento', async () => {
+  it('should include the value in the event detail', async () => {
     element.options = [{ value: 'test-value', label: 'Test' }];
     await element.updateComplete;
     

@@ -16,43 +16,43 @@ describe('GameCell', () => {
     document.body.removeChild(element);
   });
 
-  it('debería renderizar el componente', async () => {
+  it('should render the component', async () => {
     await element.updateComplete;
     expect(element).toBeTruthy();
   });
 
-  it('debería renderizar un div con clase cell', async () => {
+  it('should render a div with class cell', async () => {
     await element.updateComplete;
     const cell = element.shadowRoot.querySelector('.cell');
     expect(cell).toBeTruthy();
   });
 
-  it('debería tener role="button" en el div cell', async () => {
+  it('should have role="button" on the cell div', async () => {
     await element.updateComplete;
     const cell = element.shadowRoot.querySelector('.cell');
     expect(cell?.getAttribute('role')).toBe('button');
   });
 
-  it('debería tener cellIndex 0 por defecto', () => {
+  it('should have cellIndex 0 by default', () => {
     expect(element.cellIndex).toBe(0);
   });
 
-  it('debería tener active false por defecto', () => {
+  it('should have active false by default', () => {
     expect(element.active).toBe(false);
   });
 
-  it('debería tener clickEffect false por defecto', () => {
+  it('should have clickEffect false by default', () => {
     expect(element.clickEffect).toBe(false);
   });
 
-  it('debería actualizar cellIndex cuando cambia', async () => {
+  it('should update cellIndex when it changes', async () => {
     element.cellIndex = 5;
     await element.updateComplete;
     
     expect(element.cellIndex).toBe(5);
   });
 
-  it('no debería mostrar el mole cuando active es false', async () => {
+  it('should not show the mole when active is false', async () => {
     element.active = false;
     await element.updateComplete;
     
@@ -60,7 +60,7 @@ describe('GameCell', () => {
     expect(mole).toBeNull();
   });
 
-  it('debería mostrar el mole cuando active es true', async () => {
+  it('should show the mole when active is true', async () => {
     element.active = true;
     await element.updateComplete;
     
@@ -68,7 +68,7 @@ describe('GameCell', () => {
     expect(mole).toBeTruthy();
   });
 
-  it('debería mostrar imagen de risetto cuando active es true y clickEffect es false', async () => {
+  it('should show risetto image when active is true and clickEffect is false', async () => {
     element.active = true;
     element.clickEffect = false;
     await element.updateComplete;
@@ -77,7 +77,7 @@ describe('GameCell', () => {
     expect(img?.getAttribute('src')).toBe('/images/risetto_50x50.png');
   });
 
-  it('debería mostrar imagen de risetto enfadado cuando active es true y clickEffect es true', async () => {
+  it('should show angry risetto image when active is true and clickEffect is true', async () => {
     element.active = true;
     element.clickEffect = true;
     await element.updateComplete;
@@ -86,7 +86,7 @@ describe('GameCell', () => {
     expect(img?.getAttribute('src')).toBe('/images/risetto_angry_50x50.png');
   });
 
-  it('no debería emitir evento mole-hit cuando se hace click y active es false', async () => {
+  it('should not dispatch mole-hit event when clicked and active is false', async () => {
     element.active = false;
     await element.updateComplete;
     
@@ -101,7 +101,7 @@ describe('GameCell', () => {
     window.removeEventListener('mole-hit', eventSpy);
   });
 
-  it('no debería cambiar clickEffect cuando se hace click y active es false', async () => {
+  it('should not change clickEffect when clicked and active is false', async () => {
     element.active = false;
     await element.updateComplete;
     
@@ -111,7 +111,7 @@ describe('GameCell', () => {
     expect(element.clickEffect).toBe(false);
   });
 
-  it('debería emitir evento mole-hit cuando se hace click y active es true', async () => {
+  it('should dispatch mole-hit event when clicked and active is true', async () => {
     element.active = true;
     await element.updateComplete;
     
@@ -126,7 +126,7 @@ describe('GameCell', () => {
     window.removeEventListener('mole-hit', eventSpy);
   });
 
-  it('debería cambiar clickEffect a true cuando se hace click y active es true', async () => {
+  it('should change clickEffect to true when clicked and active is true', async () => {
     element.active = true;
     await element.updateComplete;
     
@@ -136,7 +136,7 @@ describe('GameCell', () => {
     expect(element.clickEffect).toBe(true);
   });
 
-  it('debería cambiar de risetto normal a risetto angry cuando se hace click', async () => {
+  it('should change from normal risetto to angry risetto when clicked', async () => {
     element.active = true;
     await element.updateComplete;
     
@@ -151,7 +151,7 @@ describe('GameCell', () => {
     expect(img?.getAttribute('src')).toBe('/images/risetto_angry_50x50.png');
   });
 
-  it('debería volver clickEffect a false después de 600ms', async () => {
+  it('should revert clickEffect to false after 600ms', async () => {
     element.active = true;
     await element.updateComplete;
     
@@ -165,7 +165,7 @@ describe('GameCell', () => {
     expect(element.clickEffect).toBe(false);
   });
 
-  it('debería volver a mostrar risetto normal después de 600ms del click', async () => {
+  it('should revert to showing normal risetto after 600ms from the click', async () => {
     element.active = true;
     await element.updateComplete;
     
@@ -183,25 +183,25 @@ describe('GameCell', () => {
     expect(img?.getAttribute('src')).toBe('/images/risetto_50x50.png');
   });
 
-  it('debería emitir evento con bubbles=true y composed=true', async () => {
+  it('should dispatch event with bubbles=true and composed=true', async () => {
     element.active = true;
     await element.updateComplete;
     
-    let eventoCapturado: any = null;
+    let capturedEvent: any = null;
     window.addEventListener('mole-hit', (e: any) => {
-      eventoCapturado = e;
+      capturedEvent = e;
     });
     
     const cell = element.shadowRoot.querySelector('.cell');
     cell.click();
     
-    expect(eventoCapturado.bubbles).toBe(true);
-    expect(eventoCapturado.composed).toBe(true);
+    expect(capturedEvent.bubbles).toBe(true);
+    expect(capturedEvent.composed).toBe(true);
     
     window.removeEventListener('mole-hit', () => {});
   });
 
-  it('debería manejar múltiples clicks correctamente', async () => {
+  it('should handle multiple clicks correctly', async () => {
     element.active = true;
     await element.updateComplete;
     
@@ -221,7 +221,7 @@ describe('GameCell', () => {
     window.removeEventListener('mole-hit', eventSpy);
   });
 
-  it('no debería resetear clickEffect antes de tiempo si hay múltiples clicks', async () => {
+  it('should not reset clickEffect prematurely if there are multiple clicks', async () => {
     element.active = true;
     await element.updateComplete;
     

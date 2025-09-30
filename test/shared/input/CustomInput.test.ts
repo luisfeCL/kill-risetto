@@ -9,32 +9,32 @@ describe('CustomInput', () => {
     document.body.appendChild(element);
   });
 
-  it('debería renderizar el componente', async () => {
+  it('should render the component', async () => {
     await element.updateComplete;
     expect(element).toBeTruthy();
   });
 
-  it('debería renderizar un input', async () => {
+  it('should render an input', async () => {
     await element.updateComplete;
     const input = element.shadowRoot.querySelector('input');
     expect(input).toBeTruthy();
   });
 
-  it('debería tener placeholder por defecto', () => {
+  it('should have a default placeholder', () => {
     expect(element.placeholder).toBe('Your text!');
   });
 
-  it('debería tener inputId por defecto', () => {
+  it('should have a default inputId', () => {
     expect(element.inputId).toBe('');
   });
 
-  it('debería mostrar el placeholder por defecto', async () => {
+  it('should show the default placeholder', async () => {
     await element.updateComplete;
     const input = element.shadowRoot.querySelector('input');
     expect(input?.placeholder).toBe('Your text!');
   });
 
-  it('debería actualizar el placeholder cuando cambia', async () => {
+  it('should update the placeholder when it changes', async () => {
     element.placeholder = 'Nuevo placeholder';
     await element.updateComplete;
     
@@ -42,14 +42,14 @@ describe('CustomInput', () => {
     expect(input?.placeholder).toBe('Nuevo placeholder');
   });
 
-  it('debería tener el id correcto en el input', async () => {
+  it('should have the correct id on the input', async () => {
     element.inputId = 'mi-input-id';
     await element.updateComplete;
     
     const input = element.shadowRoot.querySelector('input');
     expect(input?.id).toBe('mi-input-id');
   });
-  it('debería emitir evento onHasValue cuando el usuario escribe', async () => {
+  it('should emit onHasValue event when the user types', async () => {
     await element.updateComplete;
     
     const eventSpy = vi.fn();
@@ -62,7 +62,7 @@ describe('CustomInput', () => {
     expect(eventSpy).toHaveBeenCalled();
   });
 
-  it('debería emitir el valor correcto en el evento onHasValue', async () => {
+  it('should emit the correct value in the onHasValue event', async () => {
     await element.updateComplete;
     
     let value = '';
@@ -77,20 +77,20 @@ describe('CustomInput', () => {
     expect(value).toBe('Hola mundo');
   });
 
-  it('debería emitir evento con bubbles=true y composed=true', async () => {
+  it('should emit event with bubbles=true and composed=true', async () => {
     await element.updateComplete;
     
-    let eventoCapturado: any = null;
+    let capturedEvent: any = null;
     element.addEventListener('onHasValue', (e: any) => {
-      eventoCapturado = e;
+      capturedEvent = e;
     });
     
     const input = element.shadowRoot.querySelector('input');
     input.value = 'test';
     input.dispatchEvent(new Event('input'));
     
-    expect(eventoCapturado.bubbles).toBe(true);
-    expect(eventoCapturado.composed).toBe(true);
+    expect(capturedEvent.bubbles).toBe(true);
+    expect(capturedEvent.composed).toBe(true);
   });
 
   

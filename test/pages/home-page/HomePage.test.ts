@@ -24,45 +24,45 @@ describe('HomePage', () => {
     document.body.removeChild(element);
   });
 
-  it('debería renderizar el componente', async () => {
+  it('should render the component', async () => {
     await element.updateComplete;
     expect(element).toBeTruthy();
   });
 
-  it('debería renderizar la imagen del logo', async () => {
+  it('should render the logo image', async () => {
     await element.updateComplete;
     const img = element.shadowRoot.querySelector('img');
     expect(img).toBeTruthy();
     expect(img?.getAttribute('src')).toBe('/images/logo.png');
   });
 
-  it('debería renderizar el custom-input', async () => {
+  it('should render the custom-input', async () => {
     await element.updateComplete;
     const input = element.shadowRoot.querySelector('custom-input');
     expect(input).toBeTruthy();
   });
 
-  it('debería renderizar el custom-button', async () => {
+  it('should render the custom-button', async () => {
     await element.updateComplete;
     const button = element.shadowRoot.querySelector('custom-button');
     expect(button).toBeTruthy();
   });
 
-  it('debería tener disabled true por defecto', () => {
+  it('should have disabled true by default', () => {
     expect(element.disabled).toBe(true);
   });
 
-  it('debería tener _name undefined por defecto', () => {
+  it('should have _name undefined by default', () => {
     expect(element._name).toBeUndefined();
   });
 
-  it('debería tener el botón deshabilitado por defecto', async () => {
+  it('should have the button disabled by default', async () => {
     await element.updateComplete;
     const button = element.shadowRoot.querySelector('custom-button');
     expect(button?.hasAttribute('disabled')).toBe(true);
   });
 
-  it('debería actualizar _name al recibir input', () => {
+  it('should update _name on receiving input', () => {
     const event = new CustomEvent('onHasValue', {
       detail: 'TestUser'
     });
@@ -72,7 +72,7 @@ describe('HomePage', () => {
     expect(element._name).toBe('TestUser');
   });
 
-  it('debería habilitar el botón cuando hay texto', async () => {
+  it('should enable the button when there is text', async () => {
     const event = new CustomEvent('onHasValue', {
       detail: 'TestUser'
     });
@@ -83,7 +83,7 @@ describe('HomePage', () => {
     expect(element.disabled).toBe(false);
   });
 
-  it('debería deshabilitar el botón cuando el texto está vacío', async () => {
+  it('should disable the button when the text is empty', async () => {
     element._name = 'TestUser';
     element.disabled = false;
     await element.updateComplete;
@@ -98,7 +98,7 @@ describe('HomePage', () => {
     expect(element.disabled).toBe(true);
   });
 
-  it('debería crear un usuario al hacer click', () => {
+  it('should create a user on click', () => {
     const createUserSpy = vi.spyOn(UserService, 'createUser');
     element._name = 'TestUser';
     
@@ -107,14 +107,14 @@ describe('HomePage', () => {
     expect(createUserSpy).toHaveBeenCalledWith('TestUser');
   });
 
-  it('debería navegar a /game al hacer click', () => {
+  it('should navigate to /game on click', () => {
     element._name = 'TestUser';
     element._handleClick();
     
     expect(Router.go).toHaveBeenCalledWith('/game');
   });
 
-  it('no debería crear usuario si _name es undefined', () => {
+  it('should not create user if _name is undefined', () => {
     const createUserSpy = vi.spyOn(UserService, 'createUser');
     element._name = undefined;
     
@@ -123,7 +123,7 @@ describe('HomePage', () => {
     expect(createUserSpy).not.toHaveBeenCalled();
   });
 
-  it('no debería navegar si _name es undefined', () => {
+  it('should not navigate if _name is undefined', () => {
     element._name = undefined;
     
     element._handleClick();
@@ -131,7 +131,7 @@ describe('HomePage', () => {
     expect(Router.go).not.toHaveBeenCalled();
   });
 
-  it('debería escuchar el evento onHasValue', async () => {
+  it('should listen for the onHasValue event', async () => {
     await element.updateComplete;
     
     const event = new CustomEvent('onHasValue', {
@@ -145,7 +145,7 @@ describe('HomePage', () => {
     expect(element._name).toBe('NewUser');
   });
 
-  it('debería agregar listeners al conectarse', () => {
+  it('should add listeners on connect', () => {
     const addListenersSpy = vi.spyOn(element, '_addListeners');
     
     element.connectedCallback();
@@ -153,7 +153,7 @@ describe('HomePage', () => {
     expect(addListenersSpy).toHaveBeenCalled();
   });
 
-  it('debería remover listeners al desconectarse', () => {
+  it('should remove listeners on disconnect', () => {
     const removeListenersSpy = vi.spyOn(element, '_removeListeners');
     
     element.disconnectedCallback();
