@@ -15,6 +15,10 @@ export const CustomButtonStyles = css`
                  border-radius: var( --button-border-radius-rounded );
              }
 
+             &hover{
+                cursor: pointer;
+             }
+
              &:disabled{
                 background-color: var( --button-disabled);
                 border: var( --button-border-disabled)
