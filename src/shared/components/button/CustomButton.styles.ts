@@ -15,7 +15,7 @@ export const CustomButtonStyles = css`
                  border-radius: var( --button-border-radius-rounded );
              }
 
-             &hover{
+             &:hover{
                 cursor: pointer;
              }
 
