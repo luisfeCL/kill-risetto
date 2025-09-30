@@ -1,7 +1,7 @@
 {
     "name": "Kill Riseto",
     "short_name": "Kill risetto",
-    "description": "Consiste en lanzar aros",
+    "description": "A game with lit element, vite and typescript!",
     "start_url": "/index.html",
     "display": "standalone",
     "icons": [
