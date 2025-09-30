@@ -16,6 +16,7 @@ export const CustomButtonStyles = css`
              }
 
              &:hover{
+                background-color: var( --button-background-hover );
                 cursor: pointer;
              }
 
