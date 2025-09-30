@@ -24,8 +24,6 @@ describe('HomePage', () => {
     document.body.removeChild(element);
   });
 
-  // render
-
   it('debería renderizar el componente', async () => {
     await element.updateComplete;
     expect(element).toBeTruthy();
@@ -50,8 +48,6 @@ describe('HomePage', () => {
     expect(button).toBeTruthy();
   });
 
-  // valores por defecto
-
   it('debería tener disabled true por defecto', () => {
     expect(element.disabled).toBe(true);
   });
@@ -65,8 +61,6 @@ describe('HomePage', () => {
     const button = element.shadowRoot.querySelector('custom-button');
     expect(button?.hasAttribute('disabled')).toBe(true);
   });
-
-  // _handleInput
 
   it('debería actualizar _name al recibir input', () => {
     const event = new CustomEvent('onHasValue', {
@@ -104,8 +98,6 @@ describe('HomePage', () => {
     expect(element.disabled).toBe(true);
   });
 
-  // _handleClick
-
   it('debería crear un usuario al hacer click', () => {
     const createUserSpy = vi.spyOn(UserService, 'createUser');
     element._name = 'TestUser';
@@ -139,8 +131,6 @@ describe('HomePage', () => {
     expect(Router.go).not.toHaveBeenCalled();
   });
 
-  // eventos
-
   it('debería escuchar el evento onHasValue', async () => {
     await element.updateComplete;
     
@@ -154,8 +144,6 @@ describe('HomePage', () => {
     
     expect(element._name).toBe('NewUser');
   });
-
-  // ciclo de vida
 
   it('debería agregar listeners al conectarse', () => {
     const addListenersSpy = vi.spyOn(element, '_addListeners');

@@ -9,7 +9,6 @@ describe('CustomSelect', () => {
     document.body.appendChild(element);
   });
 
-  // render
   it('debería renderizar el componente', async () => {
     await element.updateComplete;
     expect(element).toBeTruthy();
@@ -33,8 +32,6 @@ describe('CustomSelect', () => {
     expect(form).toBeTruthy();
   });
 
-  // valores por defecto
-
   it('debería tener value vacío por defecto', () => {
     expect(element.value).toBe('');
   });
@@ -55,7 +52,6 @@ describe('CustomSelect', () => {
     expect(element.options).toEqual([]);
   });
 
-  // label
   it('debería mostrar el label por defecto', async () => {
     await element.updateComplete;
     const label = element.shadowRoot.querySelector('label');
@@ -70,7 +66,6 @@ describe('CustomSelect', () => {
     expect(label?.textContent).toBe('Selecciona una opción');
   });
 
-  // name e id
 
   it('debería tener el name correcto en el select', async () => {
     element.name = 'mi-select';
@@ -96,7 +91,6 @@ describe('CustomSelect', () => {
     expect(label?.getAttribute('for')).toBe('test-id');
   });
 
-  // options
 
   it('debería renderizar las opciones correctamente', async () => {
     element.options = [
@@ -134,7 +128,6 @@ describe('CustomSelect', () => {
     expect(options[1].value).toBe('opt2');
   });
 
-  // selected
   it('debería marcar como selected la opción que coincide con value', async () => {
     element.options = [
       { value: '1', label: 'Uno' },
@@ -168,7 +161,6 @@ describe('CustomSelect', () => {
     expect(options[1].selected).toBe(true);
   });
 
-  // evento value-selected
 
   it('debería emitir evento value-selected cuando cambia la selección', async () => {
     element.options = [

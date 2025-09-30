@@ -16,8 +16,6 @@ describe('GameCell', () => {
     document.body.removeChild(element);
   });
 
-  // render
-
   it('debería renderizar el componente', async () => {
     await element.updateComplete;
     expect(element).toBeTruthy();
@@ -35,8 +33,6 @@ describe('GameCell', () => {
     expect(cell?.getAttribute('role')).toBe('button');
   });
 
-  // valores por defecto
-
   it('debería tener cellIndex 0 por defecto', () => {
     expect(element.cellIndex).toBe(0);
   });
@@ -49,16 +45,12 @@ describe('GameCell', () => {
     expect(element.clickEffect).toBe(false);
   });
 
-  // cellIndex
-
   it('debería actualizar cellIndex cuando cambia', async () => {
     element.cellIndex = 5;
     await element.updateComplete;
     
     expect(element.cellIndex).toBe(5);
   });
-
-  // estado active y renderizado del mole
 
   it('no debería mostrar el mole cuando active es false', async () => {
     element.active = false;
@@ -94,8 +86,6 @@ describe('GameCell', () => {
     expect(img?.getAttribute('src')).toBe('/images/risetto_angry_50x50.png');
   });
 
-  // click cuando no está activo
-
   it('no debería emitir evento mole-hit cuando se hace click y active es false', async () => {
     element.active = false;
     await element.updateComplete;
@@ -120,8 +110,6 @@ describe('GameCell', () => {
     
     expect(element.clickEffect).toBe(false);
   });
-
-  // click cuando está activo
 
   it('debería emitir evento mole-hit cuando se hace click y active es true', async () => {
     element.active = true;
@@ -195,8 +183,6 @@ describe('GameCell', () => {
     expect(img?.getAttribute('src')).toBe('/images/risetto_50x50.png');
   });
 
-  // propiedades del evento
-
   it('debería emitir evento con bubbles=true y composed=true', async () => {
     element.active = true;
     await element.updateComplete;
@@ -214,8 +200,6 @@ describe('GameCell', () => {
     
     window.removeEventListener('mole-hit', () => {});
   });
-
-  // múltiples clicks
 
   it('debería manejar múltiples clicks correctamente', async () => {
     element.active = true;

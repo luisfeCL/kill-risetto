@@ -9,8 +9,6 @@ describe('CustomButton', () => {
     document.body.appendChild(element);
   });
 
-  // render
-
   it('debería renderizar el componente', async () => {
     await element.updateComplete;
     expect(element).toBeTruthy();
@@ -21,8 +19,6 @@ describe('CustomButton', () => {
     const button = element.shadowRoot.querySelector('button');
     expect(button).toBeTruthy();
   });
-
-  // valores por defecto
 
   it('debería tener label por defecto', () => {
     expect(element.label).toBe('Click me!');
@@ -36,8 +32,6 @@ describe('CustomButton', () => {
     expect(element.rounded).toBe(false);
   });
 
-  // label
-
   it('debería actualizar el label cuando cambia', async () => {
     element.label = 'Nuevo texto';
     await element.updateComplete;
@@ -45,8 +39,6 @@ describe('CustomButton', () => {
     const button = element.shadowRoot.querySelector('button');
     expect(button?.textContent?.trim()).toBe('Nuevo texto');
   });
-
-  // disabled
 
   it('debería estar deshabilitado cuando disabled=true', async () => {
     element.disabled = true;
@@ -66,8 +58,6 @@ describe('CustomButton', () => {
     const button = element.shadowRoot.querySelector('button');
     expect(button?.disabled).toBe(false);
   });
-
-  // rounded prop
 
   it('debería NO tener clase rounded por defecto', async () => {
     await element.updateComplete;

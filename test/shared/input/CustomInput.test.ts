@@ -9,8 +9,6 @@ describe('CustomInput', () => {
     document.body.appendChild(element);
   });
 
-  // render
-
   it('debería renderizar el componente', async () => {
     await element.updateComplete;
     expect(element).toBeTruthy();
@@ -22,8 +20,6 @@ describe('CustomInput', () => {
     expect(input).toBeTruthy();
   });
 
-  // valores por defecto
-
   it('debería tener placeholder por defecto', () => {
     expect(element.placeholder).toBe('Your text!');
   });
@@ -31,8 +27,6 @@ describe('CustomInput', () => {
   it('debería tener inputId por defecto', () => {
     expect(element.inputId).toBe('');
   });
-
-  // placeholder
 
   it('debería mostrar el placeholder por defecto', async () => {
     await element.updateComplete;
@@ -48,8 +42,6 @@ describe('CustomInput', () => {
     expect(input?.placeholder).toBe('Nuevo placeholder');
   });
 
-  // inputId
-
   it('debería tener el id correcto en el input', async () => {
     element.inputId = 'mi-input-id';
     await element.updateComplete;
@@ -57,8 +49,6 @@ describe('CustomInput', () => {
     const input = element.shadowRoot.querySelector('input');
     expect(input?.id).toBe('mi-input-id');
   });
-
-  // evento onHasValue
   it('debería emitir evento onHasValue cuando el usuario escribe', async () => {
     await element.updateComplete;
     

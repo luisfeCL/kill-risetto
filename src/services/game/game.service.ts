@@ -92,7 +92,6 @@ export default class GameService {
         return this._currentScore
     }
     
-    // métodos privados
     private static getDificultyData( difficulty: DifficultyType ){
         const diffData = difficulties.find( diff => diff.name === difficulty)
         return diffData

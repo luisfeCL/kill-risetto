@@ -15,8 +15,6 @@ describe('UserService', () => {
     vi.clearAllMocks();
   });
 
-  // createUser
-
   it('debería crear un nuevo usuario si no existe', () => {
     UserService.createUser('TestUser');
     
@@ -57,8 +55,6 @@ describe('UserService', () => {
     expect(firstUser?.name).toBe(secondUser?.name);
   });
 
-  // getCurrentUser
-
   it('debería devolver el usuario actual', () => {
     UserService.createUser('TestUser');
     const user = UserService.getCurrentUser();
@@ -71,8 +67,6 @@ describe('UserService', () => {
     
     expect(user).toBeNull();
   });
-
-  // updateUserData
 
   it('debería actualizar el score si es mayor', () => {
     UserService.createUser('TestUser');
@@ -101,8 +95,6 @@ describe('UserService', () => {
     
     expect(UserService.currentUser?.scores.easy).toBe(100);
   });
-
-  // getMaxScore
 
   it('debería devolver el score máximo para la dificultad actual', () => {
     GameService.currenDifficulty = 'easy';

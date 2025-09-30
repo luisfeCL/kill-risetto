@@ -27,8 +27,6 @@ describe('GameBoard', () => {
     document.body.removeChild(element);
   });
 
-  // render
-
   it('debería renderizar el componente', async () => {
     await element.updateComplete;
     expect(element).toBeTruthy();
@@ -46,8 +44,6 @@ describe('GameBoard', () => {
     expect(button).toBeTruthy();
   });
 
-  // valores por defecto
-
   it('debería tener rows 3 por defecto', () => {
     expect(element.rows).toBe(3);
   });
@@ -59,8 +55,6 @@ describe('GameBoard', () => {
   it('debería tener _activeCells vacío por defecto', () => {
     expect(element._activeCells).toEqual([]);
   });
-
-  // celdas
 
   it('debería renderizar 9 celdas por defecto (3x3)', async () => {
     await element.updateComplete;
@@ -86,8 +80,6 @@ describe('GameBoard', () => {
     expect(cells[0].active).toBe(false);
   });
 
-  // botón
-
   it('debería mostrar "Start!" cuando el juego no está activo', async () => {
     await element.updateComplete;
     const button = element.shadowRoot.querySelector('custom-button');
@@ -102,8 +94,6 @@ describe('GameBoard', () => {
     const button = element.shadowRoot.querySelector('custom-button');
     expect(button?.label).toBe('Stop!');
   });
-
-  // eventos
 
   it('debería activar la celda cuando se dispara risetto-shown', async () => {
     await element.updateComplete;

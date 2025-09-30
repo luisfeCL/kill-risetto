@@ -28,8 +28,6 @@ describe('GamePage', () => {
     UserService.currentUser = null;
   });
 
-  // render
-
   it('debería renderizar el componente', async () => {
     await element.updateComplete;
     expect(element).toBeTruthy();
@@ -66,8 +64,6 @@ describe('GamePage', () => {
     expect(gameBoard).toBeTruthy();
   });
 
-  // valores por defecto
-
   it('debería tener currentDifficulty easy por defecto', () => {
     expect(element.currentDifficulty).toBe('easy');
   });
@@ -80,8 +76,6 @@ describe('GamePage', () => {
     expect(newElement.currentDifficulty).toBe('hard');
   });
 
-  // isAuthorized
-
   it('debería estar autorizado si hay usuario actual', () => {
     expect(element.isAuthorized()).toBe(true);
   });
@@ -91,22 +85,17 @@ describe('GamePage', () => {
     expect(element.isAuthorized()).toBe(false);
   });
 
-  // firstUpdated
-
   it('debería actualizar la dificultad en GameService al montar', () => {
     const updateSpy = vi.spyOn(GameService, 'updateDifficulty');
     
     const newElement: any = document.createElement('game-page');
     document.body.appendChild(newElement);
     
-    // Forzar firstUpdated manualmente
     newElement.firstUpdated();
     
     expect(updateSpy).toHaveBeenCalledWith('easy');
     document.body.removeChild(newElement);
   });
-
-  // _handleDifficultyChange
 
   it('debería actualizar currentDifficulty al cambiar', async () => {
     await element.updateComplete;
@@ -160,8 +149,6 @@ describe('GamePage', () => {
     expect(updateSpy).toHaveBeenCalledWith('medium');
   });
 
-  // _handleEndGame
-
   it('debería actualizar UserService al terminar el juego', async () => {
     const updateSpy = vi.spyOn(UserService, 'updateUserData');
     GameService.currenDifficulty = 'easy';
@@ -173,8 +160,6 @@ describe('GamePage', () => {
     expect(updateSpy).toHaveBeenCalledWith('easy', 150);
   });
 
-  // disconnectedCallback
-
   it('debería terminar el juego al desmontar si está activo', () => {
     GameService.isGameActive = true;
     const endGameSpy = vi.spyOn(GameService, 'endGame');
@@ -183,8 +168,6 @@ describe('GamePage', () => {
     
     expect(endGameSpy).toHaveBeenCalled();
   });
-
-  // eventos
 
  it('debería escuchar el evento game-ended', async () => {
     const updateSpy = vi.spyOn(UserService, 'updateUserData');

@@ -17,8 +17,6 @@ describe('GameService', () => {
     }
   });
 
-  // valores por defecto
-
   it('debería tener isGameActive false por defecto', () => {
     expect(GameService.isGameActive).toBe(false);
   });
@@ -26,8 +24,6 @@ describe('GameService', () => {
   it('debería tener _currentScore en 0 por defecto', () => {
     expect(GameService.getCurrentScore()).toBe(0);
   });
-
-  // initGame
 
   it('debería activar el juego al iniciar', () => {
     GameService.initGame(9);
@@ -44,8 +40,6 @@ describe('GameService', () => {
     expect(eventListener).toHaveBeenCalled();
     window.removeEventListener('game-started', eventListener);
   });
-
-  // endGame
 
   it('debería desactivar el juego al terminar', () => {
     GameService.initGame(9);
@@ -72,16 +66,12 @@ describe('GameService', () => {
     window.removeEventListener('game-ended', eventListener);
   });
 
-  // getDifficulties
-
   it('debería devolver array de dificultades', () => {
     const difficulties = GameService.getDifficulties();
     
     expect(difficulties).toHaveLength(3);
     expect(difficulties[0].name).toBe('easy');
   });
-
-  // getInterval
 
   it('debería devolver 1000ms para easy', () => {
     GameService.updateDifficulty('easy');
@@ -101,15 +91,11 @@ describe('GameService', () => {
     expect(GameService.getInterval()).toBe(500);
   });
 
-  // updateDifficulty
-
   it('debería actualizar la dificultad', () => {
     GameService.updateDifficulty('hard');
     
     expect(GameService.currenDifficulty).toBe('hard');
   });
-
-  // updateScore
 
   it('debería incrementar score según dificultad easy', () => {
     GameService.updateDifficulty('easy');
@@ -140,15 +126,11 @@ describe('GameService', () => {
     expect(GameService.getCurrentScore()).toBe(20);
   });
 
-  // getCurrentScore
-
   it('debería devolver el score actual', () => {
     GameService['_currentScore'] = 150;
     
     expect(GameService.getCurrentScore()).toBe(150);
   });
-
-  // hideRissetto
 
   it('debería limpiar las celdas activas', () => {
     GameService['_activeCells'].add(3);
